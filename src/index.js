@@ -11,14 +11,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Health Check
-app.get('/health', (req, res) => res.json({ status: 'healthy', timestamp: new Date() }));
-
-// Auth Routes
+app.get('/health', (req, res) => res.json({ status: 'healthy' }));
 app.post('/api/v1/auth/register', authController.register);
 app.post('/api/v1/auth/login', authController.login);
-
-// Protected Routes
 app.use('/api/v1', authMiddleware);
 app.post('/api/v1/scheduler/posts', schedulerController.createPost);
 app.get('/api/v1/scheduler/posts', schedulerController.listPosts);
